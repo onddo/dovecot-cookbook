@@ -20,7 +20,7 @@
 # More info at https://github.com/ruby/rake/blob/master/doc/rakefile.rdoc
 #
 
-require "bundler/setup"
+require 'bundler/setup'
 
 # Checks if we are inside a Continuous Integration machine.
 #
@@ -28,12 +28,12 @@ require "bundler/setup"
 # @example
 #   ci? #=> false
 def ci?
-  ENV["CI"] == "true"
+  ENV['CI'] == 'true'
 end
 
-desc "Clean some generated files"
+desc 'Clean some generated files'
 task :clean do
-  %w{
+  %w[
     Berksfile.lock
     .bundle
     .cache
@@ -42,47 +42,47 @@ task :clean do
     .kitchen
     metadata.json
     vendor
-  }.each { |f| FileUtils.rm_rf(Dir.glob(f)) }
+  ].each { |f| FileUtils.rm_rf(Dir.glob(f)) }
 end
 
-desc "Generate Ruby documentation using yard"
+desc 'Generate Ruby documentation using yard'
 task :yard do
-  require "yard"
+  require 'yard'
   YARD::Rake::YardocTask.new do |t|
-    t.stats_options = %w{--list-undoc}
+    t.stats_options = %w[--list-undoc]
   end
 end
 
-desc "Generate Ruby documentation"
-task doc: %w{yard}
+desc 'Generate Ruby documentation'
+task doc: %w[yard]
 
 namespace :style do
-  require "rubocop/rake_task"
-  desc "Run Chefstyle tests"
+  require 'rubocop/rake_task'
+  desc 'Run Ruby style checks using rubocop'
   RuboCop::RakeTask.new(:ruby) do |task|
-    task.options += ["--display-cop-names"]
+    task.options += ['--display-cop-names']
   end
 
-  require "chefstyle"
-  desc "Run Chef style checks using foodcritic"
+  require 'chefstyle'
+  desc 'Run Chef style checks using foodcritic'
   RuboCop::RakeTask.new(:cookstyle) do |task|
-    task.options << "--display-cop-names"
+    task.options << '--display-cop-names'
   end
 end
 
-desc "Run all style checks"
-task style: %w{style:cookstyle style:ruby}
+desc 'Run all style checks'
+task style: %w[style:chef style:ruby]
 
-desc "Run ChefSpec unit tests"
+desc 'Run ChefSpec unit tests'
 task :unit do
-  require "rspec/core/rake_task"
+  require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:unit) do |t|
-    t.rspec_opts = "--color --format progress"
-    t.pattern = "spec/unit/**{,/*/**}/*_spec.rb"
+    t.rspec_opts = '--color --format progress'
+    t.pattern = 'test/unit/**{,/*/**}/*_spec.rb'
   end
 end
 
-desc "Run Test Kitchen integration tests"
+desc 'Run Test Kitchen integration tests'
 namespace :integration do
   # Generates the `Kitchen::Config` class configuration values.
   #
@@ -104,7 +104,7 @@ namespace :integration do
   # @return [Collection<Instance>] all instances.
   def kitchen_instances(regexp, config)
     instances = Kitchen::Config.new(config).instances
-    return instances if regexp.nil? || regexp == "all"
+    return instances if regexp.nil? || regexp == 'all'
 
     instances.get_all(Regexp.new(regexp))
   end
@@ -116,32 +116,32 @@ namespace :integration do
   # @param loader_config [Hash] loader configuration options.
   # @return void
   def run_kitchen(action, regexp, loader_config = {})
-    action = "test" if action.nil?
-    require "kitchen"
+    action = 'test' if action.nil?
+    require 'kitchen'
     Kitchen.logger = Kitchen.default_file_logger
     config = kitchen_config(loader_config)
     kitchen_instances(regexp, config).each { |i| i.send(action) }
   end
 
-  desc "Run Test Kitchen integration tests using vagrant"
+  desc 'Run Test Kitchen integration tests using vagrant'
   task :vagrant, [:regexp, :action] do |_t, args|
     run_kitchen(args.action, args.regexp)
   end
 
-  desc "Run Test Kitchen integration tests using docker"
+  desc 'Run Test Kitchen integration tests using docker'
   task :docker, [:regexp, :action] do |_t, args|
-    run_kitchen(args.action, args.regexp, local_config: ".kitchen.docker.yml")
+    run_kitchen(args.action, args.regexp, local_config: '.kitchen.docker.yml')
   end
 
-  desc "Run Test Kitchen integration tests in the cloud"
+  desc 'Run Test Kitchen integration tests in the cloud'
   task :cloud, [:regexp, :action] do |_t, args|
-    run_kitchen(args.action, args.regexp, local_config: ".kitchen.cloud.yml")
+    run_kitchen(args.action, args.regexp, local_config: '.kitchen.cloud.yml')
   end
 end
 
-desc "Run Test Kitchen integration tests"
-task :integration, %i{regexp action} =>
-  ci? ? %w{integration:docker} : %w{integration:vagrant}
+desc 'Run Test Kitchen integration tests'
+task :integration, %i[regexp action] =>
+  ci? ? %w[integration:docker] : %w[integration:vagrant]
 
-desc "Run doc, style, unit and integration tests"
-task default: %w{doc style unit integration}
+desc 'Run doc, style, unit and integration tests'
+task default: %w[doc style unit integration]
