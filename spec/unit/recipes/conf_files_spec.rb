@@ -34,7 +34,7 @@ describe 'dovecot::conf_files', order: :random do
 
   context 'on CentOS' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.5.1804')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.8.2003')
     end
 
     it 'creates library path directory' do
@@ -47,9 +47,9 @@ describe 'dovecot::conf_files', order: :random do
     end
   end # context on CentOS
 
-  context 'on openSUSE 42' do
+  context 'on openSUSE 15' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3')
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '15.2')
     end
 
     it 'creates library path directory' do

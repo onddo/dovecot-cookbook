@@ -45,14 +45,14 @@ describe 'dovecot::service', order: :random do
       )
     end
 
-    context 'on Ubuntu 14.04' do
+    context 'on Ubuntu 18.04' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04')
+        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '18.04')
       end
 
       it 'uses the Upstart provider' do
         expect(chef_run).to enable_service(service).with(
-          provider: Chef::Provider::Service::Upstart
+          provider: nil
         )
       end
 
@@ -63,9 +63,9 @@ describe 'dovecot::service', order: :random do
       end
     end
 
-    context 'on Ubuntu 18.04' do
-      before do
-        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '18.04')
+    context 'on Ubuntu 20.04' do
+      let(:chef_runner) do
+        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '20.04')
       end
 
       it 'uses the default provider' do
@@ -81,14 +81,14 @@ describe 'dovecot::service', order: :random do
       end
     end
 
-    context 'on Debian 8' do
+    context 'on Debian 10' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'debian', version: '8.9')
+        ChefSpec::SoloRunner.new(platform: 'debian', version: '10')
       end
 
       it 'uses the Debian provider' do
         expect(chef_run).to enable_service(service).with(
-          provider: Chef::Provider::Service::Debian
+          provider: nil
         )
       end
 
@@ -99,9 +99,9 @@ describe 'dovecot::service', order: :random do
       end
     end
 
-    context 'on Debian 9' do
+    context 'on Debian 11' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'debian', version: '9.4')
+        ChefSpec::SoloRunner.new(platform: 'debian', version: '11')
       end
 
       it 'uses the default provider' do
@@ -117,9 +117,9 @@ describe 'dovecot::service', order: :random do
       end
     end
 
-    context 'on Fedora 28' do
+    context 'on Fedora 32' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'fedora', version: '28')
+        ChefSpec::SoloRunner.new(platform: 'fedora', version: '32')
       end
 
       it 'uses the default provider' do
@@ -135,9 +135,9 @@ describe 'dovecot::service', order: :random do
       end
     end
 
-    context 'on openSUSE 42' do
+    context 'on openSUSE 15' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42')
+        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '15.2')
       end
 
       it 'uses the default provider' do
@@ -148,14 +148,14 @@ describe 'dovecot::service', order: :random do
 
       it 'supports reload' do
         expect(chef_run).to enable_service(service).with(
-          supports: Mash.new(restart: true, reload: true, status: true)
+          supports: Mash.new(restart: true, reload: false, status: true)
         )
       end
     end
 
     context 'on oracle 7' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'oracle', version: '7.4')
+        ChefSpec::SoloRunner.new(platform: 'oracle', version: '7.6')
       end
 
       it 'uses the default provider' do

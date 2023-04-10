@@ -50,7 +50,7 @@ describe 'dovecot::user', order: :random do
 
     context 'on CentOS' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'centos', version: '7.5.1804')
+        ChefSpec::SoloRunner.new(platform: 'centos', version: '7.8.2003')
       end
 
       it 'has /usr/libexec/dovecot as home' do
@@ -58,9 +58,9 @@ describe 'dovecot::user', order: :random do
       end
     end
 
-    context 'on openSUSE 42' do
+    context 'on openSUSE 15' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3')
+        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '15.2')
       end
 
       it 'has /var/run/dovecot as home' do

@@ -141,7 +141,7 @@ describe 'dovecot::from_package', order: :random do
 
   context 'on CentOS' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.5.1804')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.8.2003')
     end
 
     it 'installs dovecot package' do
@@ -171,9 +171,9 @@ describe 'dovecot::from_package', order: :random do
     end # each type, pkgs
   end # context on CentOS
 
-  context 'on openSUSE 42' do
+  context 'on openSUSE 15' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3')
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '15.2')
     end
 
     it 'installs dovecot package' do

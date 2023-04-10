@@ -47,7 +47,7 @@ RSpec.configure do |config|
   config.formatter = :documentation
   config.tty = true
   config.platform = 'centos'
-  config.version = '7.5'
+  config.version = '8'
 end
 
 at_exit { ChefSpec::Coverage.report! }
