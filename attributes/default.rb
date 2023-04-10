@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Attributes:: default
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL.
@@ -19,15 +19,15 @@
 
 default['dovecot']['install_from'] = 'package'
 
-case node['platform_family']
-when 'rhel', 'fedora'
-  default['dovecot']['lib_path'] = '/usr/libexec/dovecot'
-when 'suse'
-  default['dovecot']['lib_path'] = '/var/run/dovecot'
-# when 'debian'
-else
-  default['dovecot']['lib_path'] = '/usr/lib/dovecot'
-end
+default['dovecot']['lib_path'] = case node['platform_family']
+                                 when 'rhel', 'fedora'
+                                   '/usr/libexec/dovecot'
+                                 when 'suse'
+                                   '/var/run/dovecot'
+                                 # when 'debian'
+                                 else
+                                   '/usr/lib/dovecot'
+                                 end
 
 default['dovecot']['user'] = 'dovecot'
 default['dovecot']['group'] = node['dovecot']['user']

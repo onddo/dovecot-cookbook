@@ -77,8 +77,8 @@ describe DovecotCookbook::Pwfile, order: :random do
       let(:contents) { data_file('password') }
       let(:parsed) do
         {
-          'user1' => %w[pass1 uid1 gid1 gecos1 homedir1 sh1 ex1],
-          'user2' => %w[pass2 uid2 gid2 gecos2 homedir2 sh2 ex2]
+          'user1' => %w(pass1 uid1 gid1 gecos1 homedir1 sh1 ex1),
+          'user2' => %w(pass2 uid2 gid2 gecos2 homedir2 sh2 ex2),
         }
       end
 
@@ -92,7 +92,7 @@ describe DovecotCookbook::Pwfile, order: :random do
       let(:parsed) do
         {
           'user1' => ['pass1', nil, nil, nil, nil, nil, nil],
-          'user2' => ['pass2', nil, nil, nil, nil, nil, nil]
+          'user2' => ['pass2', nil, nil, nil, nil, nil, nil],
         }
       end
 
@@ -161,14 +161,14 @@ describe DovecotCookbook::Pwfile, order: :random do
     end
     let(:databag_users) do
       {
-        'user1' => %w[pass1 uid1 gid1 gecos1 homedir1 sh1 ex1],
-        'user2' => %w[pass2 uid2 gid2 gecos2 homedir2 sh2 ex2]
+        'user1' => %w(pass1 uid1 gid1 gecos1 homedir1 sh1 ex1),
+        'user2' => %w(pass2 uid2 gid2 gecos2 homedir2 sh2 ex2),
       }
     end
     let(:current_users) do
       {
-        'user1' => [enc_pass1] + %w[uid1 gid1 gecos1 homedir1 sh1 ex1],
-        'user2' => [enc_pass2] + %w[uid2 gid2 gecos2 homedir2 sh2 ex2]
+        'user1' => [enc_pass1] + %w(uid1 gid1 gecos1 homedir1 sh1 ex1),
+        'user2' => [enc_pass2] + %w(uid2 gid2 gecos2 homedir2 sh2 ex2),
       }
     end
     let(:pwfile_exists) { true }
@@ -197,8 +197,8 @@ describe DovecotCookbook::Pwfile, order: :random do
         )
       expect(credentials).to eq(
         [
-          %w[user1 encrypted_password_1 uid1 gid1 gecos1 homedir1 sh1 ex1],
-          %w[user2 encrypted_password_2 uid2 gid2 gecos2 homedir2 sh2 ex2]
+          %w(user1 encrypted_password_1 uid1 gid1 gecos1 homedir1 sh1 ex1),
+          %w(user2 encrypted_password_2 uid2 gid2 gecos2 homedir2 sh2 ex2),
         ]
       )
     end

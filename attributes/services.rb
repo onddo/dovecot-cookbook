@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Attributes:: services
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL.

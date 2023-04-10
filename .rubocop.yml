@@ -4,6 +4,8 @@ AllCops:
   Exclude:
   - .kitchen
   - vendor/**/*
+  TargetChefVersion: 14.0
+
 Metrics/ModuleLength:
   Max: 121
 

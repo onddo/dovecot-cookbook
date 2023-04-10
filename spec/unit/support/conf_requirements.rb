@@ -28,11 +28,11 @@ module DovecotCookbook
       end
 
       def self.enable_sieve(node)
-        node.normal['dovecot']['conf']['mail_plugins'] = %w[sieve]
+        node.normal['dovecot']['conf']['mail_plugins'] = %w(sieve)
       end
 
       def self.disable_sieve(node)
-        node.normal['dovecot']['conf']['mail_plugins'] = %w[]
+        node.normal['dovecot']['conf']['mail_plugins'] = %w()
       end
 
       def self.enable_ldap(node)

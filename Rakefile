@@ -10,9 +10,9 @@
 # rake integration:docker[regexp,action]   # Run Test Kitchen integration tests using docker
 # rake integration:vagrant[regexp,action]  # Run Test Kitchen integration tests using vagrant
 # rake style                               # Run all style checks
-# rake style:cookstyle                     # Run Chef style checks using foodcritic
+# rake style:cookstyle                     # Run Chef style checks using cookstyle
 # rake style:cookstyle:auto_correct        # Auto-correct RuboCop offenses
-# rake style:ruby                          # Run Chefstyle tests
+# rake style:ruby                          # Run Ruby style checks using rubocop
 # rake style:ruby:auto_correct             # Auto-correct RuboCop offenses
 # rake unit                                # Run ChefSpec unit tests
 # rake yard                                # Generate Ruby documentation using yard
@@ -33,7 +33,7 @@ end
 
 desc 'Clean some generated files'
 task :clean do
-  %w[
+  %w(
     Berksfile.lock
     .bundle
     .cache
@@ -42,43 +42,39 @@ task :clean do
     .kitchen
     metadata.json
     vendor
-  ].each { |f| FileUtils.rm_rf(Dir.glob(f)) }
+  ).each { |f| FileUtils.rm_rf(Dir.glob(f)) }
 end
 
 desc 'Generate Ruby documentation using yard'
 task :yard do
   require 'yard'
   YARD::Rake::YardocTask.new do |t|
-    t.stats_options = %w[--list-undoc]
+    t.stats_options = %w(--list-undoc)
   end
 end
 
 desc 'Generate Ruby documentation'
-task doc: %w[yard]
+task doc: %w(yard)
 
 namespace :style do
+  require 'cookstyle'
   require 'rubocop/rake_task'
-  desc 'Run Ruby style checks using rubocop'
-  RuboCop::RakeTask.new(:ruby) do |task|
-    task.options += ['--display-cop-names']
-  end
 
-  require 'chefstyle'
-  desc 'Run Chef style checks using foodcritic'
+  desc 'Run Chef style checks using cookstyle'
   RuboCop::RakeTask.new(:cookstyle) do |task|
     task.options << '--display-cop-names'
   end
 end
 
 desc 'Run all style checks'
-task style: %w[style:chef style:ruby]
+task style: %w(style:cookstyle style:ruby)
 
 desc 'Run ChefSpec unit tests'
 task :unit do
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:unit) do |t|
     t.rspec_opts = '--color --format progress'
-    t.pattern = 'test/unit/**{,/*/**}/*_spec.rb'
+    t.pattern = 'spec/unit/**{,/*/**}/*_spec.rb'
   end
 end
 
@@ -140,8 +136,8 @@ namespace :integration do
 end
 
 desc 'Run Test Kitchen integration tests'
-task :integration, %i[regexp action] =>
-  ci? ? %w[integration:docker] : %w[integration:vagrant]
+task :integration, %i(regexp action) =>
+  ci? ? %w(integration:docker) : %w(integration:vagrant)
 
 desc 'Run doc, style, unit and integration tests'
-task default: %w[doc style unit integration]
+task default: %w(doc style unit integration)

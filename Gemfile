@@ -13,6 +13,7 @@ group :development do
   gem 'berkshelf'
   gem 'chefspec'
   gem 'chefstyle'
+  gem 'cookstyle'
   gem 'rake'
 
   gem 'chef-cli'

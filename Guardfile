@@ -82,4 +82,4 @@ end # group unit
 #   end
 # end # group integration
 
-scope groups: %i[style unit]
+scope groups: %i(style unit)

@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Recipe:: service
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2015 Xabier de Zuazo
@@ -21,12 +21,12 @@
 service 'dovecot' do
   service_name node['dovecot']['service']['name']
   supports Mash.new(node['dovecot']['service']['supports'])
-  if node['platform'] == 'ubuntu' &&
+  if platform?('ubuntu') &&
      Gem::Requirement.new(['>= 13.10', '<= 15.10'])
                      .satisfied_by?(Gem::Version.new(node['platform_version']))
     provider Chef::Provider::Service::Upstart
-  elsif node['platform'] == 'debian' && node['platform_version'].to_i < 9
+  elsif platform?('debian') && node['platform_version'].to_i < 9
     provider Chef::Provider::Service::Debian
   end
-  action %i[enable start]
+  action %i(enable start)
 end

@@ -49,8 +49,8 @@ describe DovecotCookbook::Auth, order: :random do
               { 'args' => 'dovecot' },
               { 'driver' => 'passwd', 'args' => '' },
               { 'driver' => 'shadow', 'args' => '' },
-              { 'driver' => 'bsdauth', 'args' => '' }
-            ]
+              { 'driver' => 'bsdauth', 'args' => '' },
+            ],
         }
       expect(subject.passdb?(value)).to eq(true)
     end
@@ -60,7 +60,7 @@ describe DovecotCookbook::Auth, order: :random do
         {
           'passdb' => {
             'driver' => 'checkpassword', 'args' => '/usr/bin/checkpassword'
-          }
+          },
         }
       expect(subject.passdb?(value)).to eq(true)
     end
@@ -94,8 +94,8 @@ describe DovecotCookbook::Auth, order: :random do
               { 'args' => 'dovecot' },
               { 'driver' => 'passwd', 'args' => '' },
               { 'driver' => 'shadow', 'args' => '' },
-              { 'driver' => 'bsdauth', 'args' => '' }
-            ]
+              { 'driver' => 'bsdauth', 'args' => '' },
+            ],
         }
       expect(subject.userdb?(value)).to eq(true)
     end
@@ -105,7 +105,7 @@ describe DovecotCookbook::Auth, order: :random do
         {
           'userdb' => {
             'driver' => 'checkpassword', 'args' => '/usr/bin/checkpassword'
-          }
+          },
         }
       expect(subject.userdb?(value)).to eq(true)
     end

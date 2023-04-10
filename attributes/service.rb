@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Attributes:: service
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2015 Xabier de Zuazo
@@ -20,7 +20,7 @@
 default['dovecot']['service']['name'] = 'dovecot'
 
 default['dovecot']['service']['supports'] =
-  if node['platform_family'] == 'suse' && node['platform_version'].to_i < 42
+  if platform_family?('suse') && node['platform_version'].to_i < 42
     { restart: true, reload: false, status: true }
   else
     { restart: true, reload: true, status: true }

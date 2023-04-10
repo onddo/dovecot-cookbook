@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Library:: plugins
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL.
@@ -35,12 +35,12 @@ module DovecotCookbook
     end
 
     def self.list_unknown(plugins)
-      known_plugins = %w[
+      known_plugins = %w(
         mail_log
         quota
         acl
         sieve
-      ]
+      )
       plugins.keys - known_plugins
     end
   end

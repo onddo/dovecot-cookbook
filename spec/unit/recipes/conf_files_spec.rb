@@ -121,7 +121,7 @@ describe 'dovecot::conf_files', order: :random do
 
   normal_templates = {
     'core' =>
-      %w[
+      %w(
         conf.d/10-auth.conf
         conf.d/10-director.conf
         conf.d/10-logging.conf
@@ -145,27 +145,27 @@ describe 'dovecot::conf_files', order: :random do
         conf.d/auth-system.conf.ext
         conf.d/auth-vpopmail.conf.ext
         dovecot.conf
-      ],
-    'imap' => %w[conf.d/20-imap.conf],
-    'pop3' => %w[conf.d/20-pop3.conf],
-    'lmtp' => %w[conf.d/20-lmtp.conf],
+      ),
+    'imap' => %w(conf.d/20-imap.conf),
+    'pop3' => %w(conf.d/20-pop3.conf),
+    'lmtp' => %w(conf.d/20-lmtp.conf),
     'sieve' =>
-      %w[
+      %w(
         conf.d/20-managesieve.conf
         conf.d/90-sieve.conf
-      ],
-    'ldap' => %w[conf.d/auth-ldap.conf.ext]
+      ),
+    'ldap' => %w(conf.d/auth-ldap.conf.ext),
   }
 
   sensitive_templates = {
     'core' =>
-      %w[
+      %w(
         dovecot-db.conf.ext
         dovecot-dict-auth.conf.ext
         dovecot-dict-sql.conf.ext
         dovecot-sql.conf.ext
-      ],
-    'ldap' => %w[dovecot-ldap.conf.ext]
+      ),
+    'ldap' => %w(dovecot-ldap.conf.ext),
   }
 
   normal_templates.each do |type, templates|

@@ -26,10 +26,10 @@ Installs and configures Dovecot, open source IMAP and POP3 email server.
 EOH
 version '3.3.0' # WiP
 
-source_url 'https://github.com/zuazo/#{name}-cookbook'
-issues_url 'https://github.com/zuazo/#{name}-cookbook/issues'
+source_url "https://github.com/zuazo/#{name}-cookbook"
+issues_url "https://github.com/zuazo/#{name}-cookbook/issues"
 
-chef_version '>= 12'
+chef_version '>= 14'
 
 supports 'amazon'
 supports 'centos', '>= 6.7'

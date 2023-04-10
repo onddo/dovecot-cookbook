@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot_test
+# Cookbook:: dovecot_test
 # Recipe:: default
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.

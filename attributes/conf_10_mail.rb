@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Attributes:: conf_10_mail
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2016 Xabier de Zuazo
@@ -75,4 +75,4 @@ default['dovecot']['conf']['mail_attachment_hash'] = nil
 # grep SYS_UID_MAX /etc/login.defs
 # SuSE == 499
 # others == 999
-default['dovecot']['conf']['first_valid_uid'] = 480 if node['platform_family'] == 'suse'
+default['dovecot']['conf']['first_valid_uid'] = 480 if platform_family?('suse')

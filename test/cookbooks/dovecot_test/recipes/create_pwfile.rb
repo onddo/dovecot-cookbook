@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot_test
+# Cookbook:: dovecot_test
 # Recipe:: default
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
@@ -22,13 +22,13 @@ maildir = '/var/dovecot/vmail'
 node.default['dovecot']['auth']['passwdfile'] = {
   'passdb' => {
     'driver' => 'passwd-file',
-    'args'   => node['dovecot']['conf']['password_file']
+    'args'   => node['dovecot']['conf']['password_file'],
   },
   'userdb' => {
     'driver' => 'passwd-file',
     'args' => "username_format=%u #{node['dovecot']['conf']['password_file']}",
-    'default_fields' => "home=#{maildir}/%d/%n"
-  }
+    'default_fields' => "home=#{maildir}/%d/%n",
+  },
 }
 node.default['dovecot']['services'] = {
   'auth' => {
@@ -37,26 +37,26 @@ node.default['dovecot']['services'] = {
         'unix:auth-passdb' => {
           'mode' => '0600',
           'user' => 'dovecot',
-          'group' => 'dovecot'
-        }
-      }
-    ]
+          'group' => 'dovecot',
+        },
+      },
+    ],
   },
   'config' => {
     'listeners' => [
       {
         'unix:config' => {
-          'user' => 'dovecot'
-        }
-      }
-    ]
-  }
+          'user' => 'dovecot',
+        },
+      },
+    ],
+  },
 }
 
 node.default['dovecot']['protocols']['imap'] = {}
 node.default['dovecot']['protocols']['pop3'] = {}
 node.default['dovecot']['protocols']['lda'] =
-  { 'mail_plugins' => %w[$mail_plugins] }
+  { 'mail_plugins' => %w($mail_plugins) }
 node.default['dovecot']['conf']['mail_uid'] = 'dovecot'
 node.default['dovecot']['conf']['mail_gid'] = 'dovecot'
 node.default['dovecot']['conf']['mail_location'] = 'maildir:~/Maildir'

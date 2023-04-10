@@ -77,7 +77,7 @@ describe 'dovecot::user', order: :random do
     let(:group) { 'dovecot' }
 
     it 'has dovecot user as member' do
-      expect(chef_run).to create_group(group).with_members(%w[dovecot])
+      expect(chef_run).to create_group(group).with_members(%w(dovecot))
     end
 
     it 'is a system group' do
@@ -103,7 +103,7 @@ describe 'dovecot::user', order: :random do
   context 'when setting default_login_user' do
     let(:default_login_user) { 'default_login_user' }
     before do
-      node.normal['dovecot']['conf']['default_login_user'] = default_login_user
+      node.override['dovecot']['conf']['default_login_user'] = default_login_user
     end
 
     it 'creates default login group' do
