@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-require_relative '../spec_helper'
+require 'spec_helper'
 require 'pwfile'
 
 describe DovecotCookbook::Pwfile, order: :random do

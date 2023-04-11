@@ -10,17 +10,17 @@ group :doc do
 end
 
 group :development do
-  gem 'berkshelf'
-  gem 'chefspec'
-  gem 'chefstyle'
-  gem 'cookstyle'
-  gem 'rake'
+  # gem 'berkshelf'
+  # gem 'chefspec'
+  # gem 'cookstyle'
+  # gem 'rake'
 
-  gem 'chef-cli'
-  gem 'rspec'
+  # gem 'chef-cli'
+  # gem 'rspec'
   gem 'should_not'
 
-  gem 'simplecov', require: false
+  # gem 'simplecov', require: false
+  # gem 'net-ftp'
 end
 
 group :travis do

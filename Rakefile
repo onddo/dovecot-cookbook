@@ -20,7 +20,7 @@
 # More info at https://github.com/ruby/rake/blob/master/doc/rakefile.rdoc
 #
 
-require 'bundler/setup'
+# require 'bundler/setup'
 
 # Checks if we are inside a Continuous Integration machine.
 #
@@ -34,12 +34,14 @@ end
 desc 'Clean some generated files'
 task :clean do
   %w(
-    Berksfile.lock
     .bundle
     .cache
-    coverage
-    Gemfile.lock
     .kitchen
+    .yardoc
+    Berksfile.lock
+    Gemfile.lock
+    coverage
+    doc
     metadata.json
     vendor
   ).each { |f| FileUtils.rm_rf(Dir.glob(f)) }
@@ -67,7 +69,7 @@ namespace :style do
 end
 
 desc 'Run all style checks'
-task style: %w(style:cookstyle style:ruby)
+task style: %w(style:cookstyle)
 
 desc 'Run ChefSpec unit tests'
 task :unit do

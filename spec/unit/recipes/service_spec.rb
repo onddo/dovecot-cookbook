@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-require_relative '../spec_helper'
+require 'spec_helper'
 
 describe 'dovecot::service', order: :random do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
