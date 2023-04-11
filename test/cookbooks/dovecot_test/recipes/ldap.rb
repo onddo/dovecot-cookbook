@@ -90,12 +90,15 @@ directory email_account[:homeDirectory] do
 end
 
 # Dovecot SSL configuration
-cert = ssl_certificate 'dovecot2' do
-  namespace node['dovecot']
+ssl_cert = "#{node['ssl_certificate']['cert_dir']}/dovecot2.pem"
+ssl_key = "#{node['ssl_certificate']['key_dir']}/dovecot2.key"
+openssl_x509_certificate ssl_cert do
+  common_name 'dovecot2'
+  key_file ssl_key
   notifies :restart, 'service[dovecot]'
 end
-node.default['dovecot']['conf']['ssl_cert'] = "<#{cert.chain_combined_path}"
-node.default['dovecot']['conf']['ssl_key'] = "<#{cert.key_path}"
+node.default['dovecot']['conf']['ssl_cert'] = ssl_cert
+node.default['dovecot']['conf']['ssl_key'] = ssl_key
 
 # Dovecot IMAP configuration
 node.default['dovecot']['conf']['mail_location'] = 'maildir:~/Maildir'

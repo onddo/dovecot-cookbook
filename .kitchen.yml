@@ -18,10 +18,18 @@ platforms:
 - name: centos-7.2
 - name: centos-7.4
 - name: centos-7.5
+- name: centos-7.9
+- name: centos-stream-8
+- name: centos-stream-9
 - name: fedora-26
 - name: fedora-28
+- name: fedora-36
+- name: fedora-37
 - name: oracle-6.9
 - name: oracle-7.4
+- name: oracle-7.9
+- name: oracle-8.7
+- name: oracle-9.1
 - name: debian-7.11
   run_list: recipe[apt]
 - name: debian-8.9
@@ -34,13 +42,22 @@ platforms:
   run_list: recipe[apt]
 - name: debian-9.4
   run_list: recipe[apt]
+- name: debian-10.13
+  run_list: recipe[apt]
+- name: debian-11.6
+  run_list: recipe[apt]
 - name: ubuntu-14.04
   run_list: recipe[apt]
 - name: ubuntu-16.04
   run_list: recipe[apt]
 - name: ubuntu-18.04
   run_list: recipe[apt]
+- name: ubuntu-20.04
+  run_list: recipe[apt]
+- name: ubuntu-22.04
+  run_list: recipe[apt]
 - name: opensuse-leap-42
+- name: opensuse-leap-15
 
 suites:
 - name: default
@@ -54,6 +71,8 @@ suites:
     # and openldap cookbook is not up-to-date with this change yet
     - fedora-26
     - fedora-28
+    - fedora-36
+    - fedora-37
 - name: attributes
   run_list:
   - recipe[dovecot_test::attributes]

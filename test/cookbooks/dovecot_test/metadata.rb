@@ -28,4 +28,3 @@ depends 'dovecot'
 depends 'ldap'
 depends 'netstat' # Required to run integration tests with Docker
 depends 'openldap'
-depends 'ssl_certificate'
