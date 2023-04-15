@@ -71,7 +71,3 @@ include_recipe 'dovecot::create_pwfile'
     action :create
   end
 end
-
-# Required for integration tests:
-package 'lsof'
-include_recipe 'netstat'

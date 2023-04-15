@@ -23,8 +23,10 @@ home =
   case platform
   when 'redhat', 'centos', 'fedora', 'amazon'
     '/usr/libexec/dovecot'
-  when 'suse', 'opensuse'
+  when 'suse'
     '/var/run/dovecot'
+  when 'opensuse'
+    '/run/dovecot'
   else
     '/usr/lib/dovecot'
   end

@@ -20,8 +20,6 @@
 # More info at https://github.com/ruby/rake/blob/master/doc/rakefile.rdoc
 #
 
-# require 'bundler/setup'
-
 # Checks if we are inside a Continuous Integration machine.
 #
 # @return [Boolean] whether we are inside a CI.
