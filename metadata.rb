@@ -29,7 +29,7 @@ version '3.3.1'
 source_url "https://github.com/zuazo/#{name}-cookbook"
 issues_url "https://github.com/zuazo/#{name}-cookbook/issues"
 
-chef_version '>= 14'
+chef_version '>= 18'
 
 supports 'amazon'
 supports 'centos', '>= 7.9'
