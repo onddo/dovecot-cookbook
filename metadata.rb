@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2016 Xabier de Zuazo
 # Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
@@ -24,30 +24,22 @@ license 'Apache-2.0'
 description <<-EOH
 Installs and configures Dovecot, open source IMAP and POP3 email server.
 EOH
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '3.3.0' # WiP
+version '3.3.1'
 
-source_url "https://github.com/zuazo/#{name}-cookbook" if respond_to?(:source_url)
-issues_url "https://github.com/zuazo/#{name}-cookbook/issues" if respond_to?(:issues_url)
+source_url "https://github.com/zuazo/#{name}-cookbook"
+issues_url "https://github.com/zuazo/#{name}-cookbook/issues"
 
-chef_version '>= 12' if respond_to?(:chef_version)
+chef_version '>= 18'
 
 supports 'amazon'
-supports 'centos', '>= 6.7'
-supports 'debian', '>= 7.11'
-supports 'fedora', '>= 26.0'
-supports 'opensuse', '>= 42.0'
-supports 'oracle', '>= 6.9'
-supports 'ubuntu', '>= 14.04'
+supports 'centos', '>= 7.9'
+supports 'debian', '>= 10.13'
+supports 'fedora', '>= 36.0'
+supports 'opensuse', '>= 15.4'
+supports 'oracle', '>= 7.4'
+supports 'ubuntu', '>= 18.04'
 
 # TODO: remove this as it will be deprecated in Chef 15
 depends 'ohai'
-
-recipe 'dovecot::default', 'Installs and configures Dovecot.'
-recipe 'dovecot::user', 'Creates the dovecot system user.'
-recipe 'dovecot::conf_files', 'Generates all the configuration files.'
-recipe 'dovecot::ohai_plugin',
-       'Provides an Ohai plugin for reading dovecot install information.'
-recipe 'dovecot::from_package', 'Installs the required packages.'
-recipe 'dovecot::service', 'Configures the Dovecot service.'
-recipe 'dovecot::create_pwfile', 'Creates a userdb password file from databag.'
+# [2023-04-15T02:54:09+00:00] WARN: The Ohai plugin_path does not include /tmp/kitchen/ohai/plugins. Ohai will reload on each chef-client run in order to add this directory to the path unless you modify your client.rb configuration to add this directory to plugin_path. The plugin_path can be set via the chef-client::config recipe. See 'Ohai Settings' at https://docs.chef.io/config_rb_client.html#ohai-settings for more details.
+# [2023-04-15T02:54:09+00:00] WARN: Adding /tmp/kitchen/ohai/plugins to the Ohai plugin path for this chef-client run only

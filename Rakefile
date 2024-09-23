@@ -2,24 +2,23 @@
 # Available Rake tasks:
 #
 # $ rake -T
-# rake clean                    # Clean some generated files
-# rake default                  # Run doc, style, unit and integration tests
-# rake doc                      # Generate Ruby documentation
+# rake clean                               # Clean some generated files
+# rake default                             # Run doc, style, unit and integration tests
+# rake doc                                 # Generate Ruby documentation
 # rake integration[regexp,action]          # Run Test Kitchen integration tests
-# rake integration:cloud[regexp,action]    # Run Kitchen tests in the cloud
-# rake integration:docker[regexp,action]   # Run Kitchen tests using docker
-# rake integration:vagrant[regexp,action]  # Run Kitchen tests using vagrant
-# rake style                    # Run all style checks
-# rake style:chef               # Run Chef style checks using foodcritic
-# rake style:ruby               # Run Ruby style checks using rubocop
-# rake style:ruby:auto_correct  # Auto-correct RuboCop offenses
-# rake unit                     # Run ChefSpec unit tests
-# rake yard                     # Generate Ruby documentation using yard
+# rake integration:cloud[regexp,action]    # Run Test Kitchen integration tests in the cloud
+# rake integration:docker[regexp,action]   # Run Test Kitchen integration tests using docker
+# rake integration:vagrant[regexp,action]  # Run Test Kitchen integration tests using vagrant
+# rake style                               # Run all style checks
+# rake style:cookstyle                     # Run Chef style checks using cookstyle
+# rake style:cookstyle:auto_correct        # Auto-correct RuboCop offenses
+# rake style:ruby                          # Run Ruby style checks using rubocop
+# rake style:ruby:auto_correct             # Auto-correct RuboCop offenses
+# rake unit                                # Run ChefSpec unit tests
+# rake yard                                # Generate Ruby documentation using yard
 #
 # More info at https://github.com/ruby/rake/blob/master/doc/rakefile.rdoc
 #
-
-require 'bundler/setup'
 
 # Checks if we are inside a Continuous Integration machine.
 #
@@ -32,53 +31,50 @@ end
 
 desc 'Clean some generated files'
 task :clean do
-  %w[
-    Berksfile.lock
+  %w(
     .bundle
     .cache
-    coverage
-    Gemfile.lock
     .kitchen
+    .yardoc
+    Berksfile.lock
+    Gemfile.lock
+    coverage
+    doc
     metadata.json
     vendor
-  ].each { |f| FileUtils.rm_rf(Dir.glob(f)) }
+  ).each { |f| FileUtils.rm_rf(Dir.glob(f)) }
 end
 
 desc 'Generate Ruby documentation using yard'
 task :yard do
   require 'yard'
   YARD::Rake::YardocTask.new do |t|
-    t.stats_options = %w[--list-undoc]
+    t.stats_options = %w(--list-undoc)
   end
 end
 
 desc 'Generate Ruby documentation'
-task doc: %w[yard]
+task doc: %w(yard)
 
 namespace :style do
+  require 'cookstyle'
   require 'rubocop/rake_task'
-  desc 'Run Ruby style checks using rubocop'
-  RuboCop::RakeTask.new(:ruby)
 
-  require 'foodcritic'
-  desc 'Run Chef style checks using foodcritic'
-  FoodCritic::Rake::LintTask.new(:chef) do |t|
-    t.options = {
-      fail_tags: ['any'],
-      progress: true
-    }
+  desc 'Run Chef style checks using cookstyle'
+  RuboCop::RakeTask.new(:cookstyle) do |task|
+    task.options << '--display-cop-names'
   end
 end
 
 desc 'Run all style checks'
-task style: %w[style:chef style:ruby]
+task style: %w(style:cookstyle)
 
 desc 'Run ChefSpec unit tests'
 task :unit do
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:unit) do |t|
     t.rspec_opts = '--color --format progress'
-    t.pattern = 'test/unit/**{,/*/**}/*_spec.rb'
+    t.pattern = 'spec/unit/**{,/*/**}/*_spec.rb'
   end
 end
 
@@ -105,6 +101,7 @@ namespace :integration do
   def kitchen_instances(regexp, config)
     instances = Kitchen::Config.new(config).instances
     return instances if regexp.nil? || regexp == 'all'
+
     instances.get_all(Regexp.new(regexp))
   end
 
@@ -139,8 +136,8 @@ namespace :integration do
 end
 
 desc 'Run Test Kitchen integration tests'
-task :integration, %i[regexp action] =>
-  ci? ? %w[integration:docker] : %w[integration:vagrant]
+task :integration, %i(regexp action) =>
+  ci? ? %w(integration:docker) : %w(integration:vagrant)
 
 desc 'Run doc, style, unit and integration tests'
-task default: %w[doc style unit integration]
+task default: %w(doc style unit integration)

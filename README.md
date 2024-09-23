@@ -1,5 +1,5 @@
-Dovecot Cookbook
-================
+# Dovecot Cookbook
+
 [![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg?style=flat)](http://www.rubydoc.info/github/zuazo/dovecot-cookbook)
 [![GitHub](http://img.shields.io/badge/github-zuazo/dovecot--cookbook-blue.svg?style=flat)](https://github.com/zuazo/dovecot-cookbook)
 [![License](https://img.shields.io/github/license/zuazo/dovecot-cookbook.svg?style=flat)](#license-and-author)
@@ -10,72 +10,71 @@ Dovecot Cookbook
 [![Build Status](http://img.shields.io/travis/zuazo/dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/dovecot-cookbook)
 [![Inline docs](http://inch-ci.org/github/zuazo/dovecot-cookbook.svg?branch=master&style=flat)](http://inch-ci.org/github/zuazo/dovecot-cookbook)
 
-[Chef](https://www.chef.io/) cookbook to install and configure [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
+[Chef](https://www.chef.io/) cookbook to install and configure
+[Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
 
-Table of Contents
-=================
+## Table of Contents
 
 * [Description](#description)
 * [Requirements](#requirements)
-  * [Supported Platforms](#supported-platforms)
-  * [Required Cookbooks](#required-cookbooks)
-  * [Required Applications](#required-applications)
+   * [Supported Platforms](#supported-platforms)
+   * [Required Cookbooks](#required-cookbooks)
+   * [Required Applications](#required-applications)
 * [Attributes](#attributes)
-  * [Main Configuration Attributes](#main-configuration-attributes)
-  * [Authentication Processes Attributes](#authentication-processes-attributes)
-  * [Director-specific Attributes](#director-specific-attributes)
-  * [Log Destination Attributes](#log-destination-attributes)
-  * [Mailbox Locations and Namespaces Attributes](#mailbox-locations-and-namespaces-attributes)
-  * [Master Configuration File Attributes](#master-configuration-file-attributes)
-  * [SSL Attributes](#ssl-attributes)
-  * [LDA Specific Attributes](#lda-specific-attributes)
-  * [Replication Specific Attributes](#replication-specific-attributes)
-  * [LMTP Specific Attributes](#lmtp-specific-attributes)
-  * [Berkeley DB DB_CONFIG Attributes](#berkeley-db-db_config-attributes)
-  * [Dictionary Quota SQL Attributes](#dictionary-quota-sql-attributes)
-  * [LDAP Authentication Attributes](#ldap-authentication-attributes)
-  * [SQL Authentication Attributes](#sql-authentication-attributes)
-  * [Distribution Package Names Attributes](#distribution-package-names-attributes)
-  * [Distribution Service Configuration](#distribution-service-configuration)
+   * [Main Configuration Attributes](#main-configuration-attributes)
+   * [Authentication Processes Attributes](#authentication-processes-attributes)
+   * [Director-specific Attributes](#director-specific-attributes)
+   * [Log Destination Attributes](#log-destination-attributes)
+   * [Mailbox Locations and Namespaces Attributes](#mailbox-locations-and-namespaces-attributes)
+   * [Master Configuration File Attributes](#master-configuration-file-attributes)
+   * [SSL Attributes](#ssl-attributes)
+   * [LDA Specific Attributes](#lda-specific-attributes)
+   * [Replication Specific Attributes](#replication-specific-attributes)
+   * [LMTP Specific Attributes](#lmtp-specific-attributes)
+   * [Berkeley DB DB_CONFIG Attributes](#berkeley-db-db_config-attributes)
+   * [Dictionary Quota SQL Attributes](#dictionary-quota-sql-attributes)
+   * [LDAP Authentication Attributes](#ldap-authentication-attributes)
+   * [SQL Authentication Attributes](#sql-authentication-attributes)
+   * [Distribution Package Names Attributes](#distribution-package-names-attributes)
+   * [Distribution Service Configuration](#distribution-service-configuration)
 * [Recipes](#recipes)
-  * [dovecot::default](#dovecotdefault)
-  * [dovecot::user](#dovecotuser)
-  * [dovecot::conf_files](#dovecotconf_files)
-  * [dovecot::ohai_plugin](#dovecotohai_plugin)
-  * [dovecot::from_package](#dovecotfrom_package)
-  * [dovecot::service](#dovecotservice)
-  * [dovecot::create_pwfile](#dovecotcreate_pwfile)
+   * [dovecot::default](#dovecotdefault)
+   * [dovecot::user](#dovecotuser)
+   * [dovecot::conf_files](#dovecotconf_files)
+   * [dovecot::ohai_plugin](#dovecotohai_plugin)
+   * [dovecot::from_package](#dovecotfrom_package)
+   * [dovecot::service](#dovecotservice)
+   * [dovecot::create_pwfile](#dovecotcreate_pwfile)
 * [Ohai Plugin](#ohai-plugin)
 * [Usage Examples](#usage-examples)
-  * [Including in a Cookbook Recipe](#including-in-a-cookbook-recipe)
-  * [Including in the Run List](#including-in-the-run-list)
-  * [Authentication Database Examples](#authentication-database-examples)
-  * [Dictionary Quota SQL Example](#dictionary-quota-sql-example)
-  * [Namespaces Example](#namespaces-example)
-  * [Plugins Examples](#plugins-examples)
-    * [Mail Log Plugin Example](#mail-log-plugin-example)
-    * [Sieve Plugin Example](#sieve-plugin-example)
-    * [Stats Plugin Example](#stats-plugin-example)
-  * [Protocols Examples](#protocols-examples)
-  * [Service Examples](#service-examples)
-    * [Director Service Example](#director-service-example)
-    * [Imap-login Service Example](#imap-login-service-example)
-    * [Doveadm Service Example](#doveadm-service-example)
-    * [Quota-status Service Example](#quota-status-service-example)
-    * [Quota-warning Service Example](#quota-warning-service-example)
-    * [Stats Service Example](#stats-service-example)
-  * [LDAP Example](#ldap-example)
-  * [Password File Example](#password-file-example)
-  * [A Complete Example](#a-complete-example)
+   * [Including in a Cookbook Recipe](#including-in-a-cookbook-recipe)
+   * [Including in the Run List](#including-in-the-run-list)
+   * [Authentication Database Examples](#authentication-database-examples)
+   * [Dictionary Quota SQL Example](#dictionary-quota-sql-example)
+   * [Namespaces Example](#namespaces-example)
+   * [Plugins Examples](#plugins-examples)
+      * [Mail Log Plugin Example](#mail-log-plugin-example)
+      * [Sieve Plugin Example](#sieve-plugin-example)
+      * [Stats Plugin Example](#stats-plugin-example)
+   * [Protocols Examples](#protocols-examples)
+   * [Service Examples](#service-examples)
+      * [Director Service Example](#director-service-example)
+      * [Imap-login Service Example](#imap-login-service-example)
+      * [Doveadm Service Example](#doveadm-service-example)
+      * [Quota-status Service Example](#quota-status-service-example)
+      * [Quota-warning Service Example](#quota-warning-service-example)
+      * [Stats Service Example](#stats-service-example)
+   * [LDAP Example](#ldap-example)
+   * [Password File Example](#password-file-example)
+   * [A Complete Example](#a-complete-example)
 * [Testing](#testing)
 * [Contributing](#contributing)
 * [TODO](#todo)
 * [License and Author](#license-and-author)
 
-Requirements
-============
+## Requirements
 
-## Supported Platforms
+### Supported Platforms
 
 This cookbook has been tested on the following platforms:
 
@@ -91,20 +90,22 @@ This cookbook has been tested on the following platforms:
 
 Let me know if you use it successfully on any other platform.
 
-## Required Cookbooks
+### Required Cookbooks
 
 * [ohai](https://supermarket.chef.io/cookbooks/ohai)
 
-## Required Applications
+### Required Applications
 
 * Chef `12` or higher.
 * Ruby `2.2` or higher.
-* **Dovecot `>= 2`**: requires this version of dovecot to be available by the distribution's package manager.
+* **Dovecot `>= 2`**: requires this version of dovecot to be available by the
+  distribution's package manager.
 
-Attributes
-==========
+## Attributes
 
-To see a more complete description of the attributes, go to the [Dovecot wiki2 configuration section](http://wiki2.dovecot.org/#Dovecot_configuration) or read the comments in the templates and generated configuration files.
+To see a more complete description of the attributes, go to the [Dovecot wiki2
+configuration section](http://wiki2.dovecot.org/#Dovecot_configuration) or read
+the comments in the templates and generated configuration files.
 
 | Attribute                                         | Default                    | Description                    |
 |:--------------------------------------------------|:---------------------------|:-------------------------------|
@@ -136,7 +137,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['databag_users_item']`         | `users`                    | The databag item to use for User's database (Passwords).
 | `node['dovecot']['conf']['password_file']`      | `#{node['dovecot']['conf_path']}/password` | The Password file location
 
-## Main Configuration Attributes
+### Main Configuration Attributes
 
 * Configuration file: `dovecot.conf`.
 
@@ -152,11 +153,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['verbose_proctitle']`      | *nil*   | Show more verbose process titles (in ps).
 | `node['dovecot']['conf']['shutdown_clients']`       | *nil*   | Should all processes be killed when Dovecot master process shuts down.
 | `node['dovecot']['conf']['doveadm_worker_count']`   | *nil*   | If non-zero, run mail commands via this many connections to doveadm server.
-| `node['dovecot']['conf']['doveadm_socket_path']`    | *nil*   | UNIX socket or host:port used for connecting to doveadm server.
+| `node['dovecot']['conf']['doveadm_socket_path']`    | *nil*   | UNIX socket or `host:port` used for connecting to doveadm server.
 | `node['dovecot']['conf']['import_environment']`     | *nil*   | Space separated list of environment variables that are preserved on Dovecot startup and his childs.
 | `node['dovecot']['conf']['dict']`                   | *nil*   | Dictionary server settings as a hash.
 
-## Authentication Processes Attributes
+### Authentication Processes Attributes
 
 * Configuration file: `conf.d/10-auth.conf`.
 
@@ -182,7 +183,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['auth_ssl_require_client_cert']` | *nil*     | Take the username from client's SSL certificate, using X509_NAME_get_text_by_NID() which returns the subject's DN's CommonName.
 | `node['dovecot']['conf']['auth_mechanisms']`              | `'plain'` | Space separated list of wanted authentication mechanisms: plain, login, digest-md5, cram-md5, ntlm, rpa, apop, anonymous, gssapi, otp, skey, gss-spnego.
 
-## Director-specific Attributes
+### Director-specific Attributes
 
 * Configuration file: `conf.d/10-director.conf`.
 
@@ -194,7 +195,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['director_doveadm_port']`  | *nil*   | TCP/IP port that accepts doveadm connections (instead of director connections).
 | `node['dovecot']['conf']['director_username_hash']` | *nil*   | How the username is translated before being hashed.
 
-## Log Destination Attributes
+### Log Destination Attributes
 
 * Configuration file: `conf.d/10-logging.conf`.
 
@@ -216,7 +217,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['mail_log_prefix']`           | *nil*   | Log prefix for mail processes.
 | `node['dovecot']['conf']['deliver_log_format']`        | *nil*   | Format to use for logging mail deliveries.
 
-## Mailbox Locations and Namespaces Attributes
+### Mailbox Locations and Namespaces Attributes
 
 * Configuration file: `conf.d/10-mail.conf`.
 
@@ -275,7 +276,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['mail_attachment_fs']`            | *nil*   | Filesystem backend to use for saving attachments: posix, sis posix or sis-queue posix.
 | `node['dovecot']['conf']['mail_attachment_hash']`          | *nil*   | Hash format to use in attachment filenames.
 
-## Master Configuration File Attributes
+### Master Configuration File Attributes
 
 * Configuration file: `conf.d/10-master.conf`.
 
@@ -287,7 +288,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['default_login_user']`    | *nil*   | Login user is internally used by login processes.
 | `node['dovecot']['conf']['default_internal_user']` | *nil*   | Internal user is used by unprivileged processes.
 
-## SSL Attributes
+### SSL Attributes
 
 * Configuration file: `conf.d/10-ssl.conf`.
 
@@ -304,6 +305,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['ssl_verify_client_cert']`    | *nil*        | Request client to send a certificate.
 | `node['dovecot']['conf']['ssl_cert_username_field']`   | *nil*        | Which field from certificate to use for username.
 | `node['dovecot']['conf']['ssl_parameters_regenerate']` | *nil*        | How often to regenerate the SSL parameters file.
+| `node['dovecot']['conf']['ssl_dh']`                    | *nil*        | DH parameters to use. Generate new params with `openssl dhparam -out /etc/dovecot/dh.pem 4096`
 | `node['dovecot']['conf']['ssl_dh_parameters_length']`  | *nil*        | DH parameters length to use.
 | `node['dovecot']['conf']['ssl_protocols']`             | *nil*        | SSL protocols to use.
 | `node['dovecot']['conf']['ssl_cipher_list']`           | *nil*        | SSL ciphers to use.
@@ -311,7 +313,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['ssl_crypto_device']`         | *nil*        | SSL crypto device to use, for valid values run `$ openssl engine`.
 | `node['dovecot']['conf']['ssl_options']`               | *nil*        | SSL extra options. Currently supported options are: `'no_compression'`.
 
-## LDA Specific Attributes
+### LDA Specific Attributes
 
 Also used by LMTP.
 
@@ -323,7 +325,7 @@ Also used by LMTP.
 | `node['dovecot']['conf']['hostname']`                      | *nil*   | Hostname to use in various parts of sent mails, eg. in Message-Id.
 | `node['dovecot']['conf']['quota_full_tempfail']`           | *nil*   | If user is over quota, return with temporary failure instead of bouncing the mail.
 | `node['dovecot']['conf']['sendmail_path']`                 | *nil*   | Binary to use for sending mails.
-| `node['dovecot']['conf']['submission_host']`               | *nil*   | If non-empty, send mails via this SMTP host[:port] instead of sendmail.
+| `node['dovecot']['conf']['submission_host']`               | *nil*   | If non-empty, send mails via this SMTP `host[:port]` instead of sendmail.
 | `node['dovecot']['conf']['rejection_subject']`             | *nil*   | Subject: header to use for rejection mails.
 | `node['dovecot']['conf']['rejection_reason']`              | *nil*   | Human readable error message for rejection mails.
 | `node['dovecot']['conf']['recipient_delimiter']`           | *nil*   | Delimiter character between local-part and detail in email address.
@@ -331,7 +333,7 @@ Also used by LMTP.
 | `node['dovecot']['conf']['lda_mailbox_autocreate']`        | *nil*   | Should saving a mail to a nonexistent mailbox automatically create it?
 | `node['dovecot']['conf']['lda_mailbox_autosubscribe']`     | *nil*   | Should automatically created mailboxes be also automatically subscribed?
 
-## Replication Specific Attributes
+### Replication Specific Attributes
 
 Also used by Replication/sync of dovecot.
 
@@ -342,8 +344,7 @@ Also used by Replication/sync of dovecot.
 | `node['dovecot']['conf']['doveadm_port']`                  | *nil*   | Used to set a default port for the doveadm replication commands.
 | `node['dovecot']['conf']['doveadm_password']`              | *nil*   | Needed to set an 'secret' for the replication communication between to servers.
 
-
-## LMTP Specific Attributes
+### LMTP Specific Attributes
 
 * Configuration file: `conf.d/20-lmtp.conf`
 
@@ -353,7 +354,8 @@ Also used by Replication/sync of dovecot.
 | `node['dovecot']['conf']['lmtp_save_to_detail_mailbox']` | *nil*   | When recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.
 | `node['dovecot']['conf']['lmtp_rcpt_check_quota']`       | *nil*   | Verify quota before replying to RCPT TO. This adds a small overhead.
 | `node['dovecot']['conf']['lmtp_hdr_delivery_address']`   | *nil*   |  Which recipient address to use for Delivered-To: header and Received: header.
-## Berkeley DB DB_CONFIG Attributes
+
+### Berkeley DB DB_CONFIG Attributes
 
 * Configuration file: `dovecot-db.conf.ext`.
 
@@ -361,7 +363,7 @@ Also used by Replication/sync of dovecot.
 |:--------------------------------|:--------|:-------------------------------|
 | `node['dovecot']['conf']['db']` | *nil*   | DB_CONFIG for Berkeley DB as a hash.
 
-## Dictionary Quota SQL Attributes
+### Dictionary Quota SQL Attributes
 
 * Configuration files: `dovecot-dict-sql.conf.ext`.
 
@@ -370,7 +372,7 @@ Also used by Replication/sync of dovecot.
 | `node['dovecot']['conf']['dict_sql']['connect']` | *nil*   | Dict sql connect configuration as a string or an array.
 | `node['dovecot']['conf']['dict_sql']['maps']`    | *nil*   | Dict sql database tables maps ([see the example below](#dictionary-quota-sql-example)).
 
-## LDAP Authentication Attributes
+### LDAP Authentication Attributes
 
 * Configuration files: `dovecot-ldap.conf.ext`.
 
@@ -407,7 +409,7 @@ Also used by Replication/sync of dovecot.
 | `node['dovecot']['conf']['ldap']['iterate_filter']`      | *nil*   | Filter to get a list of all users.
 | `node['dovecot']['conf']['ldap']['default_pass_scheme']` | *nil*   | Default password scheme. "{scheme}" before password overrides this.
 
-## SQL Authentication Attributes
+### SQL Authentication Attributes
 
 * Configuration file: `dovecot-sql.conf.ext`.
 
@@ -420,10 +422,14 @@ Also used by Replication/sync of dovecot.
 | `node['dovecot']['conf']['sql']['user_query']`          | *nil*   | userdb query to retrieve the user information.
 | `node['dovecot']['conf']['sql']['iterate_query']`       | *nil*   | Query to get a list of all usernames.
 
+### Distribution Package Names Attributes
 
-## Distribution Package Names Attributes
-
-These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files.
+These attributes below contain the default required distribution packages for
+the supported platforms. But you are free to create your own to support other
+platforms. Keep in mind that all are put inside a subkey (`type`). This
+`node['dovecot']['packages'][type]` attribute is then used together with the
+`node['dovecot']['conf_files'][type]` attribute to generate the configuration
+files.
 
 | Attribute                               | Default      | Description                    |
 |:----------------------------------------|:-------------|:-------------------------------|
@@ -437,9 +443,11 @@ These attributes below contain the default required distribution packages for th
 | `node['dovecot']['packages']['mysql']`  | *calculated* | Dovecot MySQL package names array.
 | `node['dovecot']['packages']['pgsql']`  | *calculated* | Dovecot PostgreSQL package names array.
 
-## Distribution Service Configuration
+### Distribution Service Configuration
 
-These attributes are used to configure the Dovecot service according to each distribution. Surely you want to change them if you want to support new platforms or want to improve the support of some platforms already supported.
+These attributes are used to configure the Dovecot service according to each
+distribution. Surely you want to change them if you want to support new
+platforms or want to improve the support of some platforms already supported.
 
 | Attribute                                | Default      | Description                       |
 |:-----------------------------------------|:-------------|:----------------------------------|
@@ -447,53 +455,54 @@ These attributes are used to configure the Dovecot service according to each dis
 | `node['dovecot']['service']['supports']` | *calculated* | Dovecot service supported actions.
 | `node['dovecot']['service']['provider']` | *calculated* | Dovecot service Chef provider class.
 
-Recipes
-=======
+## Recipes
 
-## dovecot::default
+### dovecot::default
 
 Installs and configures Dovecot.
 
-## dovecot::user
+### dovecot::user
 
 Creates the dovecot system user. Used by the default recipe.
 
-## dovecot::conf_files
+### dovecot::conf_files
 
 Generates all the configuration files. Used by the default recipe.
 
-## dovecot::ohai_plugin
+### dovecot::ohai_plugin
 
 Provides an Ohai plugin for reading dovecot install information.
 
-## dovecot::from_package
+### dovecot::from_package
 
-Installs the required packages. Used by the default recipe if `node['dovecot']['install_from]` is `package`.
+Installs the required packages. Used by the default recipe if
+`node['dovecot']['install_from]` is `package`.
 
-## dovecot::service
+### dovecot::service
 
 Configures the Dovecot service. Used by the default recipe.
 
-## dovecot::create_pwfile
+### dovecot::create_pwfile
 
 Creates and configures a password file from local mailboxes based on a data bag.
 
 * `node['dovecot']['databag_name']`: The Databag on which items are stored.
-* `node['dovecot']['databag_users_item']`: The databag item to use (under the databag set)
+* `node['dovecot']['databag_users_item']`: The databag item to use (under the
+  databag set)
 
-Ohai Plugin
-===========
+## Ohai Plugin
 
-The `ohai_plugin` recipe installs an Ohai plugin. It will be installed and activated automatically.
+The `ohai_plugin` recipe installs an Ohai plugin. It will be installed and
+activated automatically.
 
 It will set the following attributes:
 
 * `node['dovecot']['version']`: version of Dovecot.
 * `node['dovecot']['build-options']`: some Dovecot build options.
- * `node['dovecot']['build-options']['mail-storages']`
- * `node['dovecot']['build-options']['sql-driver-plugins']` or `node['dovecot']['build-options']['sql-drivers']`
- * `node['dovecot']['build-options']['passdb']`
- * `node['dovecot']['build-options']['userdb']`
+   * `node['dovecot']['build-options']['mail-storages']`
+   * `node['dovecot']['build-options']['sql-driver-plugins']` or `node['dovecot']['build-options']['sql-drivers']`
+   * `node['dovecot']['build-options']['passdb']`
+   * `node['dovecot']['build-options']['userdb']`
 
 This is an output example:
 
@@ -542,10 +551,9 @@ This is an output example:
 }
 ```
 
-Usage Examples
-==============
+## Usage Examples
 
-## Including in a Cookbook Recipe
+### Including in a Cookbook Recipe
 
 You can simply include it in a recipe:
 
@@ -563,7 +571,7 @@ Don't forget to include the `dovecot` cookbook as a dependency in the metadata.
 depends 'dovecot'
 ```
 
-## Including in the Run List
+### Including in the Run List
 
 Another alternative is to include the default recipe in your Run List.
 
@@ -577,11 +585,13 @@ Another alternative is to include the default recipe in your Run List.
 }
 ```
 
-## Authentication Database Examples
+### Authentication Database Examples
 
-Authentication database attributes, inside passdb or usedb hash values, can contain both arrays or hashes.
+Authentication database attributes, inside passdb or usedb hash values, can
+contain both arrays or hashes.
 
-Supported auths are the following: `checkpassword`, `deny`, `ldap`, `master`, `passwdfile`, `sql`, `system` and `vpopmail`.
+Supported auths are the following: `checkpassword`, `deny`, `ldap`, `master`,
+`passwdfile`, `sql`, `system` and `vpopmail`.
 
 ```ruby
 node.default['dovecot']['auth']['checkpassword'] =
@@ -618,7 +628,7 @@ node.default['dovecot']['auth']['system']['passdb'] =
   ]
 ```
 
-## Dictionary Quota SQL Example
+### Dictionary Quota SQL Example
 
 ```ruby
 node.default['dovecot']['conf']['dict_sql']['maps'] =
@@ -647,9 +657,10 @@ node.default['dovecot']['conf']['dict_sql']['maps'] =
   ]
 ```
 
-## Namespaces Example
+### Namespaces Example
 
-The `['namespaces']` attribute is an array, which could contain both array or hash values.
+The `['namespaces']` attribute is an array, which could contain both array or
+hash values.
 
 ```ruby
 node.default['dovecot']['namespaces'] = [
@@ -696,13 +707,13 @@ node.default['dovecot']['namespaces'] = [
 ]
 ```
 
-## Plugins Examples
+### Plugins Examples
 
 Plugin attribute values should be of type hash.
 
 Supported plugins are the following: `mail_log`, `acl` and `quota`.
 
-### Mail Log Plugin Example
+#### Mail Log Plugin Example
 
 ```ruby
 node.default['dovecot']['plugins']['mail_log'] = {
@@ -712,7 +723,7 @@ node.default['dovecot']['plugins']['mail_log'] = {
 }
 ```
 
-### Sieve Plugin Example
+#### Sieve Plugin Example
 
 ```ruby
 node.default['dovecot']['plugins']['sieve'] = {
@@ -721,7 +732,8 @@ node.default['dovecot']['plugins']['sieve'] = {
 }
 ```
 
-### Stats Plugin Example
+#### Stats Plugin Example
+
 ```ruby
 node.default['dovecot']['plugins']['stats'] = {
   'stats_refresh' => '60 secs',
@@ -734,7 +746,7 @@ node.default['dovecot']['plugins']['stats'] = {
 }
 ```
 
-## Protocols Examples
+### Protocols Examples
 
 Protocol attribute values should be of type hash.
 
@@ -752,15 +764,19 @@ To enable the IMAP protocol without additional settings:
 node.default['dovecot']['protocols']['imap'] = {}
 ```
 
-## Service Examples
+### Service Examples
 
-The `['services']` attribute is a hash. Each service attribute should be a hash. But the `['listeners']` subkey could contain both a hash and an array.
+The `['services']` attribute is a hash. Each service attribute should be
+a hash. But the `['listeners']` subkey could contain both a hash and an array.
 
-Inside this `listeners` key, you should name each listener with the format *PROTOCOL:NAME*. Allowed protocols are `fifo`, `unix` and `inet`.
+Inside this `listeners` key, you should name each listener with the format
+*PROTOCOL:NAME*. Allowed protocols are `fifo`, `unix` and `inet`.
 
-Supported services are the following: `anvil`, `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login`, `managesieve`, `aggregator`, `replicator`, `config`.
+Supported services are the following: `anvil`, `director`, `imap-login`,
+`pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`,
+`managesieve-login`, `managesieve`, `aggregator`, `replicator`, `config`.
 
-### Director Service Example
+#### Director Service Example
 
 ```ruby
 node.default['dovecot']['services']['director']['listeners'] = [
@@ -771,7 +787,7 @@ node.default['dovecot']['services']['director']['listeners'] = [
 ]
 ```
 
-### Imap-login Service Example
+#### Imap-login Service Example
 
 ```ruby
 node.default['dovecot']['services']['imap-login'] = {
@@ -785,7 +801,7 @@ node.default['dovecot']['services']['imap-login'] = {
 }
 ```
 
-### Doveadm Service Example
+#### Doveadm Service Example
 
 ```ruby
 default['dovecot']['services']['doveadm'] = {
@@ -796,7 +812,7 @@ default['dovecot']['services']['doveadm'] = {
 }
 ```
 
-### Quota-status Service Example
+#### Quota-status Service Example
 
 ```ruby
 default['dovecot']['services']['quota-status'] = {
@@ -807,7 +823,7 @@ default['dovecot']['services']['quota-status'] = {
 }
 ```
 
-### Quota-warning Service Example
+#### Quota-warning Service Example
 
 ```ruby
 default['dovecot']['services']['quota-warning'] = {
@@ -819,7 +835,7 @@ default['dovecot']['services']['quota-warning'] = {
 }
 ```
 
-### Stats Service Example
+#### Stats Service Example
 
 ```ruby
 default['dovecot']['services']['stats'] = {
@@ -836,9 +852,10 @@ default['dovecot']['services']['stats'] = {
 }
 ```
 
-## LDAP Example
+### LDAP Example
 
-This is a recipe example to integrate Dovecot with [OpenLDAP](http://www.openldap.org/). The following cookbooks are used:
+This is a recipe example to integrate Dovecot with
+[OpenLDAP](http://www.openldap.org/). The following cookbooks are used:
 
 * [`openldap`](https://supermarket.chef.io/cookbooks/openldap)
 * [`ldap`](https://supermarket.chef.io/cookbooks/ldap)
@@ -941,7 +958,7 @@ node.default['dovecot']['conf']['ldap']['base'] = node['openldap']['basedn']
 include_recipe 'dovecot'
 ```
 
-## Password File Example
+### Password File Example
 
 This is an example of how to use userdb password file.
 
@@ -982,9 +999,10 @@ Databag example, two ways of defining a user included:
 }
 ```
 
-## A Complete Example
+### A Complete Example
 
-This is a complete recipe example for installing and configuring Dovecot 2 to work with PostfixAdmin MySQL tables, including IMAP service:
+This is a complete recipe example for installing and configuring Dovecot 2 to
+work with PostfixAdmin MySQL tables, including IMAP service:
 
 ```ruby
 
@@ -1122,27 +1140,25 @@ template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
 end
 ```
 
-If you want a more complete example, you can look at the [postfix-dovecot](https://github.com/zuazo/postfix-dovecot-cookbook) recipe.
+If you want a more complete example, you can look at the
+[postfix-dovecot](https://github.com/zuazo/postfix-dovecot-cookbook) recipe.
 
-Testing
-=======
+## Testing
 
 See [TESTING.md](https://github.com/zuazo/dovecot-cookbook/blob/master/TESTING.md).
 
-Contributing
-============
+## Contributing
 
-Please do not hesitate to [open an issue](https://github.com/zuazo/dovecot-cookbook/issues/new) with any questions or problems.
+Please do not hesitate to [open an issue](https://github.com/zuazo/dovecot-cookbook/issues/new)
+with any questions or problems.
 
 See [CONTRIBUTING.md](https://github.com/zuazo/dovecot-cookbook/blob/master/CONTRIBUTING.md).
 
-TODO
-====
+## TODO
 
 See [TODO.md](https://github.com/zuazo/dovecot-cookbook/blob/master/TODO.md).
 
-License and Author
-==================
+## License and Author
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
@@ -1163,14 +1179,16 @@ License and Author
 | **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL.
 | **License:**         | Apache License, Version 2.0
 
+```text
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-    
+
         http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+```

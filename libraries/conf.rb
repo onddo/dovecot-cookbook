@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Library:: conf
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
@@ -51,7 +51,7 @@ module DovecotCookbook
     def self.protocols(conf)
       # dovecot: config: Fatal: Error in configuration file
       # /etc/dovecot/dovecot.conf: protocols: Unknown protocol: lda
-      ignore_protos = %w[lda]
+      ignore_protos = %w(lda)
       protos = DovecotCookbook::Protocols.list(conf) - ignore_protos
       protos.empty? ? 'none' : protos.join(' ')
     end

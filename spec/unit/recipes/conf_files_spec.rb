@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-require_relative '../spec_helper'
+require 'spec_helper'
 
 describe 'dovecot::conf_files', order: :random do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
@@ -34,7 +34,7 @@ describe 'dovecot::conf_files', order: :random do
 
   context 'on CentOS' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.5.1804')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.8.2003')
     end
 
     it 'creates library path directory' do
@@ -47,9 +47,9 @@ describe 'dovecot::conf_files', order: :random do
     end
   end # context on CentOS
 
-  context 'on openSUSE 42' do
+  context 'on openSUSE 15' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3')
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '15.2')
     end
 
     it 'creates library path directory' do
@@ -121,7 +121,7 @@ describe 'dovecot::conf_files', order: :random do
 
   normal_templates = {
     'core' =>
-      %w[
+      %w(
         conf.d/10-auth.conf
         conf.d/10-director.conf
         conf.d/10-logging.conf
@@ -145,27 +145,27 @@ describe 'dovecot::conf_files', order: :random do
         conf.d/auth-system.conf.ext
         conf.d/auth-vpopmail.conf.ext
         dovecot.conf
-      ],
-    'imap' => %w[conf.d/20-imap.conf],
-    'pop3' => %w[conf.d/20-pop3.conf],
-    'lmtp' => %w[conf.d/20-lmtp.conf],
+      ),
+    'imap' => %w(conf.d/20-imap.conf),
+    'pop3' => %w(conf.d/20-pop3.conf),
+    'lmtp' => %w(conf.d/20-lmtp.conf),
     'sieve' =>
-      %w[
+      %w(
         conf.d/20-managesieve.conf
         conf.d/90-sieve.conf
-      ],
-    'ldap' => %w[conf.d/auth-ldap.conf.ext]
+      ),
+    'ldap' => %w(conf.d/auth-ldap.conf.ext),
   }
 
   sensitive_templates = {
     'core' =>
-      %w[
+      %w(
         dovecot-db.conf.ext
         dovecot-dict-auth.conf.ext
         dovecot-dict-sql.conf.ext
         dovecot-sql.conf.ext
-      ],
-    'ldap' => %w[dovecot-ldap.conf.ext]
+      ),
+    'ldap' => %w(dovecot-ldap.conf.ext),
   }
 
   normal_templates.each do |type, templates|

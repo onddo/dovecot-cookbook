@@ -51,6 +51,6 @@ def stub_shell_out(cmd)
 end
 
 def data_file(file)
-  data_dir = ::File.join(::File.dirname(__FILE__), '..', 'data')
+  data_dir = ::File.join(::File.dirname(__FILE__), '..', 'unit', 'data')
   ::IO.read(::File.join(data_dir, file))
 end

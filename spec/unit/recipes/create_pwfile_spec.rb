@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-require_relative '../spec_helper'
+require 'spec_helper'
 
 describe 'dovecot::create_pwfile', order: :random do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
@@ -27,13 +27,13 @@ describe 'dovecot::create_pwfile', order: :random do
   end
 
   describe 'inside ruby_block[databag_to_dovecot_userdb] resource' do
-    let(:chef_runner) { ChefSpec::SoloRunner.new(step_into: %w[ruby_block]) }
+    let(:chef_runner) { ChefSpec::SoloRunner.new(step_into: %w(ruby_block)) }
     let(:data_bag_users) do
       {
         'users' => {
           'dilan' => 'password1234',
-          'vassilis' => ['vassilis1234', nil, nil, nil, nil, nil, nil]
-        }
+          'vassilis' => ['vassilis1234', nil, nil, nil, nil, nil, nil],
+        },
       }
     end
     let(:pwfile) { instance_double('File', readlines: []) }

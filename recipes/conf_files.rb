@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Recipe:: conf_files
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL.
@@ -34,7 +34,7 @@ conf_files_dirs.each do |dir|
     owner node['dovecot']['conf_files_user']
     group node['dovecot']['group']
     mode '00755'
-    only_if { dir != '.' }
+    not_if { dir == '.' }
   end
 end
 

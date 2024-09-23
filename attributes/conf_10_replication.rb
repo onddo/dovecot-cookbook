@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Attributes:: conf_10_replication
 # Author:: Vassilis Aretakis (<vassilis@aretakis.eu>)
 # License:: Apache License, Version 2.0

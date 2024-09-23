@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-require_relative '../spec_helper'
+require 'spec_helper'
 
 describe 'dovecot::user', order: :random do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
@@ -50,7 +50,7 @@ describe 'dovecot::user', order: :random do
 
     context 'on CentOS' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'centos', version: '7.5.1804')
+        ChefSpec::SoloRunner.new(platform: 'centos', version: '7.8.2003')
       end
 
       it 'has /usr/libexec/dovecot as home' do
@@ -58,9 +58,9 @@ describe 'dovecot::user', order: :random do
       end
     end
 
-    context 'on openSUSE 42' do
+    context 'on openSUSE 15' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3')
+        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '15.2')
       end
 
       it 'has /var/run/dovecot as home' do
@@ -77,7 +77,7 @@ describe 'dovecot::user', order: :random do
     let(:group) { 'dovecot' }
 
     it 'has dovecot user as member' do
-      expect(chef_run).to create_group(group).with_members(%w[dovecot])
+      expect(chef_run).to create_group(group).with_members(%w(dovecot))
     end
 
     it 'is a system group' do
@@ -103,7 +103,7 @@ describe 'dovecot::user', order: :random do
   context 'when setting default_login_user' do
     let(:default_login_user) { 'default_login_user' }
     before do
-      node.normal['dovecot']['conf']['default_login_user'] = default_login_user
+      node.override['dovecot']['conf']['default_login_user'] = default_login_user
     end
 
     it 'creates default login group' do

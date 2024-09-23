@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', '..', 'libraries'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
 
 require 'chefspec'
 require 'chefspec/berkshelf'
@@ -47,7 +47,7 @@ RSpec.configure do |config|
   config.formatter = :documentation
   config.tty = true
   config.platform = 'centos'
-  config.version = '7.5'
+  config.version = '8'
 end
 
-at_exit { ChefSpec::Coverage.report! }
+ChefSpec::Coverage.start!

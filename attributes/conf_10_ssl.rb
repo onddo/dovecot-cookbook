@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Attributes:: conf_10_ssl
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL.
@@ -24,8 +24,7 @@ when 'rhel', 'fedora'
   default['dovecot']['conf']['ssl_cert'] = '</etc/pki/dovecot/certs/dovecot.pem'
   default['dovecot']['conf']['ssl_key'] = '</etc/pki/dovecot/private/dovecot.pem'
 when 'debian'
-  case node['platform']
-  when 'ubuntu'
+  if platform?('ubuntu')
     if node['platform_version'].to_f >= 18.04
       default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/private/dovecot.pem'
       default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.key'
@@ -40,14 +39,12 @@ when 'debian'
       default['dovecot']['conf']['ssl_key'] = '</etc/ssl/private/dovecot.pem'
     end
   # when 'debian'
+  elsif node['platform_version'].to_i >= 8
+    default['dovecot']['conf']['ssl_cert'] = nil
+    default['dovecot']['conf']['ssl_key'] = nil
   else
-    if node['platform_version'].to_i >= 8
-      default['dovecot']['conf']['ssl_cert'] = nil
-      default['dovecot']['conf']['ssl_key'] = nil
-    else
-      default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
-      default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.pem'
-    end
+    default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
+    default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.pem'
   end
 when 'suse'
   default['dovecot']['conf']['ssl'] = true if node['platform_version'].to_i < 13
@@ -64,6 +61,7 @@ default['dovecot']['conf']['ssl_verify_client_cert'] = nil
 default['dovecot']['conf']['ssl_cert_username_field'] = nil
 default['dovecot']['conf']['ssl_parameters_regenerate'] = nil
 default['dovecot']['conf']['ssl_dh_parameters_length'] = nil
+default['dovecot']['conf']['ssl_dh'] = nil
 default['dovecot']['conf']['ssl_protocols'] = nil
 default['dovecot']['conf']['ssl_cipher_list'] = nil
 default['dovecot']['conf']['ssl_prefer_server_ciphers'] = nil

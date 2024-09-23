@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
 
 gem 'serverspec'
+gem 'net-imap', '0.3.1'

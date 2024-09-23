@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot_test
+# Cookbook:: dovecot_test
 # Recipe:: default
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
@@ -31,3 +31,13 @@ end
 # Required for integration tests:
 package 'lsof'
 include_recipe 'netstat'
+if platform_family?('rhel', 'fedora', 'suse')
+  package 'dmidecode'
+end
+if platform_family?('suse')
+  package 'net-tools-deprecated'
+  file '/etc/dovecot/dovecot-oauth2.conf.ext' do
+    mode '00640'
+    only_if { ::File.exist?('/etc/dovecot/dovecot-oauth2.conf.ext') }
+  end
+end

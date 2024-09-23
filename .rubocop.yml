@@ -1,21 +1,25 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   Exclude:
   - .kitchen
   - vendor/**/*
+  TargetChefVersion: 18.0
+
 Metrics/ModuleLength:
   Max: 121
 
 Style/CommentedKeyword:
   Enabled: False
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
 Metrics/BlockLength:
-  ExcludedMethods: ['describe', 'context']
+  IgnoredMethods: ['describe', 'context']
   Max: 50
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: False
 
 Naming/HeredocDelimiterNaming:
@@ -24,7 +28,7 @@ Naming/HeredocDelimiterNaming:
 Style/MultilineIfModifier:
   Enabled: False
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: False
 
 Layout/ClosingHeredocIndentation:

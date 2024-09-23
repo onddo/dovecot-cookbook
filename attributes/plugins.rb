@@ -1,4 +1,4 @@
-# Cookbook Name:: dovecot
+# Cookbook:: dovecot
 # Attributes:: plugins
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL.
@@ -22,5 +22,5 @@ default['dovecot']['conf']['mail_plugins'] = []
 default['dovecot']['plugins']['sieve'] =
   {
     'sieve' => '~/.dovecot.sieve',
-    'sieve_dir' => '~/sieve'
+    'sieve_dir' => '~/sieve',
   }

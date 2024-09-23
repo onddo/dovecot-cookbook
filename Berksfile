@@ -11,7 +11,7 @@ my_cookbook = 'dovecot'
 # return void
 def local_cookbook(name, version = '>= 0.0.0', options = {})
   cookbook(name, version, {
-    path: "../../cookbooks/#{name}"
+    path: "../../cookbooks/#{name}",
   }.merge(options))
 end
 

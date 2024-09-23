@@ -25,25 +25,25 @@ platform = os[:family].downcase
 platform_version = os[:release].to_f
 
 ssl_cert, ssl_key =
-  if %w[redhat centos fedora amazon].include?(platform)
-    %w[/etc/pki/dovecot/certs/dovecot.pem /etc/pki/dovecot/private/dovecot.pem]
-  elsif %w[debian].include?(platform)
-    platform_version >= 8 ? [nil, nil] : %w[dovecot.pem private/dovecot.pem]
-  elsif %w[ubuntu].include?(platform)
+  if %w(redhat centos fedora amazon).include?(platform)
+    %w(/etc/pki/dovecot/certs/dovecot.pem /etc/pki/dovecot/private/dovecot.pem)
+  elsif %w(debian).include?(platform)
+    platform_version >= 8 ? [nil, nil] : %w(dovecot.pem private/dovecot.pem)
+  elsif %w(ubuntu).include?(platform)
     if platform_version >= 15.10
       [nil, nil]
     elsif platform_version >= 14
-      %w[dovecot.pem private/dovecot.pem]
+      %w(dovecot.pem private/dovecot.pem)
     else
-      %w[/etc/ssl/certs/dovecot.pem /etc/ssl/private/dovecot.pem]
+      %w(/etc/ssl/certs/dovecot.pem /etc/ssl/private/dovecot.pem)
     end
-  elsif %w[suse opensuse].include?(platform)
+  elsif %w(suse opensuse).include?(platform)
     [nil, nil]
   else
-    %w[dovecot.pem private/dovecot.pem]
+    %w(dovecot.pem private/dovecot.pem)
   end
 
-normal_files = %w[
+normal_files = %w(
   dovecot.conf
   conf.d/10-mail.conf
   conf.d/10-logging.conf
@@ -67,14 +67,14 @@ normal_files = %w[
   conf.d/auth-sql.conf.ext
   conf.d/20-imap.conf
   conf.d/auth-master.conf.ext
-]
+)
 
-sensitive_files = %w[
+sensitive_files = %w(
   dovecot-sql.conf.ext
   dovecot-dict-auth.conf.ext
   dovecot-db.conf.ext
   dovecot-dict-sql.conf.ext
-]
+)
 
 normal_files.each do |f|
   describe file(absolute_path(f)) do

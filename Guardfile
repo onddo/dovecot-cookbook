@@ -7,33 +7,9 @@
 
 group :style,
       halt_on_fail: true do
-  guard :foodcritic,
-        cli: '--exclude test/unit',
-        cookbook_paths: '.',
-        all_on_start: false do
-    watch(%r{attributes/.+\.rb$})
-    watch(%r{definitions/.+\.rb$})
-    watch(%r{libraries/.+\.rb$})
-    watch(%r{providers/.+\.rb$})
-    watch(%r{recipes/.+\.rb$})
-    watch(%r{resources/.+\.rb$})
-    watch(%r{templates/.+\.erb$})
-    watch('metadata.rb')
-  end
-
-  guard :rubocop,
-        all_on_start: false do
+  guard :rubocop, cli: '-r cookstyle' do
     watch(/.+\.rb$/)
-    watch('Gemfile')
-    watch('Rakefile')
-    watch('Capfile')
-    watch('Guardfile')
-    watch('Podfile')
-    watch('Thorfile')
-    watch('Vagrantfile')
-    watch('Berksfile')
-    watch('Cheffile')
-    watch('Vagabondfile')
+    watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
   end
 end # group style
 
@@ -82,4 +58,4 @@ end # group unit
 #   end
 # end # group integration
 
-scope groups: %i[style unit]
+scope groups: %i(style unit)

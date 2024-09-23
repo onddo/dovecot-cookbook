@@ -15,20 +15,20 @@
 # limitations under the License.
 #
 
-require_relative '../spec_helper'
+require 'spec_helper'
 
 describe 'dovecot::default', order: :random do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
 
-  %w[
+  %w(
     dovecot::ohai_plugin
     dovecot::user
     dovecot::from_package
     dovecot::conf_files
     dovecot::service
-  ].each do |recipe|
+  ).each do |recipe|
     it "includes #{recipe} recipe" do
       expect(chef_run).to include_recipe(recipe)
     end
