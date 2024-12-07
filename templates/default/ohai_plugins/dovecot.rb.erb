@@ -17,7 +17,7 @@
 #
 
 Ohai.plugin(:Dovecot) do
-  ENABLE_BUILD_OPTIONS = <%= @enable_build_options.eql?(true).to_s %>
+  ENABLE_BUILD_OPTIONS ||= <%= @enable_build_options.eql?(true).to_s %>
 
   provides 'dovecot', 'dovecot/version'
   provides 'dovecot/build-options' if ENABLE_BUILD_OPTIONS
