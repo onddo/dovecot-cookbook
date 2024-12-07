@@ -24,6 +24,7 @@ ohai 'dovecot' do
   action :nothing
 end
 
+# ohai cookbook has been deprecated
 ohai_plugin 'dovecot' do
   source_file 'ohai_plugins/dovecot.rb.erb'
   resource :template
